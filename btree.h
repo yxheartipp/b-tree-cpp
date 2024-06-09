@@ -21,6 +21,41 @@ public:
 
   std::shared_ptr<BTreeNode> search(int k);
 
+  int findKey(int k) {
+    int idx = 0;
+    while (idx < n && keys[idx] < k) {
+      ++idx;
+    }
+    return idx;
+  }
+
+  int getPred(int idx) {
+    std::shared_ptr<BTreeNode> cur = Child[idx];
+    while (!cur->leaf) {
+      cur = cur->Child[cur->n];
+    }
+
+    return cur->keys[cur->n - 1];
+  }
+
+  int getSucc(int idx) {
+    std::shared_ptr<BTreeNode> cur = Child[idx];
+    while (!cur->leaf) {
+      cur = cur->Child[0];
+    }
+
+    return cur->keys[0];
+  }
+
+  void remove(int k);
+  void removeFromLeaf(int idx);
+  void removeFromNonLeaf(int idx);
+
+  void fill(int idx);
+  void borrowFromPrev(int idx);
+  void borrowFromNext(int idx);
+  void merge(int idx);
+
   friend class BTree;
 };
 
@@ -45,4 +80,5 @@ public:
   }
 
   void insert(int k);
+  void remove(int k);
 };

@@ -22,7 +22,8 @@ int main() {
 
   k = 15;
   (t.search(k) != NULL) ? std::cout << "\nPresent"
-                        : std::cout << "\nNot Present";
-
+                        : std::cout << "\nNot Present" << std::endl;
+  t.remove(7);
+  t.traverse();
   return 0;
 }
